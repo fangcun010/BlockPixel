@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     SDL_GetCurrentDisplayMode(0, &current);
 
     window = SDL_CreateWindow(
-        "Hello", 0, 0, 1024, 768,
+        "Hello", 100, 100, 1024, 768,
         SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
     );
     if (window == NULL) {
@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    igStyleColorsDark(NULL);
+    igStyleColorsLight(NULL);
     //ImFontAtlas_AddFontDefault(io.Fonts, NULL);
 
 
