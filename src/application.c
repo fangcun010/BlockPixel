@@ -18,6 +18,8 @@
 #define igButton igButton_Str
 #endif
 
+#include "main_window.h"
+
 SDL_Window* window = NULL;
 
 int main(int argc, char* argv[])
@@ -54,7 +56,7 @@ int main(int argc, char* argv[])
     SDL_GetCurrentDisplayMode(0, &current);
 
     window = SDL_CreateWindow(
-        "Hello", 100, 100, 1024, 768,
+        "BlockPixel", 100, 100, 800, 600,
         SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
     );
     if (window == NULL) {
@@ -84,7 +86,7 @@ int main(int argc, char* argv[])
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    igStyleColorsLight(NULL);
+    igStyleColorsDark(NULL);
     //ImFontAtlas_AddFontDefault(io.Fonts, NULL);
 
 
@@ -97,6 +99,10 @@ int main(int argc, char* argv[])
     clearColor.w = 1.00f;
 
     bool quit = false;
+
+    ImGuiStyle_ScaleAllSizes(igGetStyle(), 3.0f);
+    bp_main_window_init();
+
     while (!quit)
     {
         SDL_Event e;
@@ -117,47 +123,9 @@ int main(int argc, char* argv[])
         ImGui_ImplSDL2_NewFrame(window);
         igNewFrame();
 
-        if (showDemoWindow)
-            igShowDemoWindow(&showDemoWindow);
-
-        // show a simple window that we created ourselves.
-        {
-            static float f = 0.0f;
-            static int counter = 0;
-
-            igBegin("Hello, world!", NULL, 0);
-            igText("This is some useful text");
-            igCheckbox("Demo window", &showDemoWindow);
-            igCheckbox("Another window", &showAnotherWindow);
-
-            igSliderFloat("Float", &f, 0.0f, 1.0f, "%.3f", 0);
-            igColorEdit3("clear color", (float*)&clearColor, 0);
-
-            ImVec2 buttonSize;
-            buttonSize.x = 0;
-            buttonSize.y = 0;
-            if (igButton("Button", buttonSize))
-                counter++;
-            igSameLine(0.0f, -1.0f);
-            igText("counter = %d", counter);
-
-            igText("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / igGetIO()->Framerate, igGetIO()->Framerate);
-            igEnd();
-        }
-
-        if (showAnotherWindow)
-        {
-            igBegin("imgui Another Window", &showAnotherWindow, 0);
-            igText("Hello from imgui");
-            ImVec2 buttonSize;
-            buttonSize.x = 0; buttonSize.y = 0;
-            if (igButton("Close me", buttonSize))
-            {
-                showAnotherWindow = false;
-            }
-            igEnd();
-        }
-
+        bool b=true;
+        igShowDemoWindow(&b);
+        bp_main_window_update();
         // render
         igRender();
         SDL_GL_MakeCurrent(window, gl_context);

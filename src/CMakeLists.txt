@@ -1,16 +1,28 @@
 cmake_minimum_required(VERSION 3.23)
 
-add_executable(blockpixel application.c)
+set(BP_SOURCES application.c
+    main_window.c main_window.h
+    main_menu.c main_menu.h
+    task_bar.c task_bar.h
+    workspace.c workspace.h
+    new_sprite_dlg.c new_sprite_dlg.h
+    status_bar.c status_bar.h
+    tab_page.c tab_page.h
+    home_tab_page.c home_tab_page.h
+    editor_tab_page.c editor_tab_page.h)
+
+add_executable(blockpixel ${BP_SOURCES})
 
 target_include_directories(blockpixel SYSTEM PRIVATE ${BP_THIRD_PARTY}/cimgui)
 target_include_directories(blockpixel SYSTEM PRIVATE ${BP_THIRD_PARTY}/cimgui/generator/output)
 
 target_include_directories(blockpixel SYSTEM PRIVATE ${BP_THIRD_PARTY}/SDL/include)
+target_include_directories(blockpixel SYSTEM PRIVATE ${BP_THIRD_PARTY}/stb)
 
-set(IMGUI_SOURCES 
-    ${BP_THIRD_PARTY}/cimgui/imgui/imgui.cpp 
-    ${BP_THIRD_PARTY}/cimgui/imgui/imgui_draw.cpp 
-    ${BP_THIRD_PARTY}/cimgui/imgui/imgui_demo.cpp 
+set(IMGUI_SOURCES
+    ${BP_THIRD_PARTY}/cimgui/imgui/imgui.cpp
+    ${BP_THIRD_PARTY}/cimgui/imgui/imgui_draw.cpp
+    ${BP_THIRD_PARTY}/cimgui/imgui/imgui_demo.cpp
     ${BP_THIRD_PARTY}/cimgui/imgui/imgui_widgets.cpp
     ${BP_THIRD_PARTY}/cimgui/imgui/imgui_tables.cpp
 )
