@@ -4,6 +4,7 @@
 [submodule "3rd/cimgui"]
 	path = 3rd/cimgui
 	url = https://github.com/cimgui/cimgui.git
+	branch = docking-inter
 [submodule "3rd/stb"]
 	path = 3rd/stb
 	url = https://github.com/nothings/stb.git
